@@ -1,3 +1,5 @@
+"""Solutions for https://adventofcode.com/2024/day/3"""
+
 from pathlib import Path
 import re
 

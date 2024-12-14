@@ -1,3 +1,5 @@
+"""Solutions for https://adventofcode.com/2024/day/1"""
+
 from functools import lru_cache
 from pathlib import Path
 

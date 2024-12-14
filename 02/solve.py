@@ -1,3 +1,5 @@
+"""Solutions for https://adventofcode.com/2024/day/2"""
+
 from pathlib import Path
 import pandas as pd
 from itertools import combinations
