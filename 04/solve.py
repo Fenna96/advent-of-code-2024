@@ -24,10 +24,10 @@ def _validLine(line: int) -> bool:
     return 0 <= line < numLines
 
 
-def greedyElf(line: int, start: int, *, toSearch: str, dir: str | None = None):
+def greedyElf(line: int, start: int, *, toSearch: str, dir: str):
     findings = 0
     match dir:
-        case None:
+        case "any":
             candidates = [
                 ("l", line, start - 1),
                 ("r", line, start + 1),
@@ -88,24 +88,44 @@ for i, line in enumerate(lines):
     for j, letter in enumerate(line):
         # send a mad elf going randomly to find an xmas, exploring all possibilities
         if letter == "x":
-            xmas += greedyElf(i, j, toSearch="m")
+            xmas += greedyElf(i, j, toSearch="m", dir="any")
         # send a squad of elfs each one searching a "mas" in a single direction
         # collect data and see if a X was found
         if letter == "m":
+            # consider only
+            # M.M   -->
+            # to avoid finding stuff twice
             if _validPos(j + 2) and line[j + 2] == "m":
+                # S . S
+                # . A .
+                # M . M
                 x_mas += int(
                     focusedElf(i, j, toSearch="a", dir="ur")
                     and focusedElf(i, j + 2, toSearch="a", dir="ul")
                 )
+                # M . M
+                # . A .
+                # S . S
                 x_mas += int(
                     focusedElf(i, j, toSearch="a", dir="dr")
                     and focusedElf(i, j + 2, toSearch="a", dir="dl")
                 )
+            # consider only
+            # M     |
+            # .     |
+            # M     v
+            # to avoid finding stuff twice
             if _validLine(i + 2) and lines[i + 2][j] == "m":
+                # M . S
+                # . A .
+                # M . S
                 x_mas += int(
                     focusedElf(i, j, toSearch="a", dir="dr")
                     and focusedElf(i + 2, j, toSearch="a", dir="ur")
                 )
+                # S . M
+                # . A .
+                # S . M
                 x_mas += int(
                     focusedElf(i, j, toSearch="a", dir="dl")
                     and focusedElf(i + 2, j, toSearch="a", dir="ul")
