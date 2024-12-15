@@ -9,7 +9,7 @@ start = perf_counter()
 regx = r"mul\(([0-9]*)\,([0-9]*)\)|(do\(\))|(don't\(\))"
 
 with open(Path(__file__).parent.joinpath("in.txt")) as f:
-    instructions = "".join(f.readlines()).strip("\n")
+    instructions = "".join(f.readlines()).replace("\n", "")
 
 total = 0
 instructedTotal = 0
